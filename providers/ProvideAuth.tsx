@@ -1,7 +1,10 @@
-import {useEffect, useState} from 'react';
+import React, {createContext, useContext, useState} from 'react';
+
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-function useAuthHook() {
+export const loginContext = createContext({});
+
+export function ProvideAuth({children}: any) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
@@ -11,6 +14,7 @@ function useAuthHook() {
     try {
       await AsyncStorage.setItem('username', data.username);
       setUser(data.username);
+      console.log('signed in');
     } catch (error: any) {
       setErrors(error.errors);
     }
@@ -28,7 +32,13 @@ function useAuthHook() {
     setLoading(false);
   }
 
-  return {user, loading, errors, signin, signout};
+  return (
+    <loginContext.Provider
+      value={{
+        user: user,
+        signin: signin,
+      }}>
+      {children}
+    </loginContext.Provider>
+  );
 }
-
-export default useAuthHook;

@@ -1,11 +1,11 @@
-import React, {useEffect, useContext} from 'react';
+import React from 'react';
 import {useForm} from 'react-hook-form';
 import {View, Button} from 'react-native';
 import CustomInput from '../atoms/CustomInput';
-import {useAuth} from '../../hooks/ProvideAuth';
+import useAuth from '../../hooks/useAuth';
 
-const LoginForm = () => {
-  const {user, signin}: any = useAuth();
+const LoginForm = ({navigation}: any) => {
+  const {signin}: any = useAuth();
 
   type FormValues = {
     username: string;
@@ -13,17 +13,28 @@ const LoginForm = () => {
   };
   const {control, handleSubmit} = useForm<FormValues>();
 
-  const onSubmit = (data: FormValues) => {
-    signin(data).then(function () {
-      console.log('signed in');
-    });
+  const onSubmit = (loginFormData: FormValues) => {
+    signin(loginFormData);
+    navigation.navigate('Home');
   };
 
   return (
-    <View>
-      <CustomInput control={control} name="username" placeholder="Username" />
-      <CustomInput control={control} name="password" placeholder="Password" />
-      <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+    <View className="flex h-full w-full justify-center items-center">
+      <CustomInput
+        style="w-[80vw] border-2 border-slate-200  rounded-lg p-2 m-4"
+        control={control}
+        name="username"
+        placeholder="Username"
+      />
+      <CustomInput
+        style="w-[80vw] border-2 border-slate-200  rounded-lg p-2"
+        control={control}
+        name="password"
+        placeholder="Password"
+      />
+      <View className="my-2">
+        <Button title="Submit" onPress={handleSubmit(onSubmit)} />
+      </View>
     </View>
   );
 };

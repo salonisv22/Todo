@@ -1,21 +1,20 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {Controller} from 'react-hook-form';
-import {TextInput, View} from 'react-native';
+import GlobalInput from './GlobalInput';
 
-const CustomInput = ({control, name, rules = {}, placeholder}: any) => {
+const CustomInput = ({style, control, name, rules = {}, placeholder}: any) => {
   return (
     <Controller
       control={control}
       name={name}
       rules={rules}
       render={({field: {value, onChange}}) => (
-        <View>
-          <TextInput
-            value={value}
-            onChangeText={onChange}
-            placeholder={placeholder}
-          />
-        </View>
+        <GlobalInput
+          style={style}
+          value={value}
+          action={onChange}
+          placeholder={placeholder}
+        />
       )}
     />
   );
