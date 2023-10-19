@@ -1,5 +1,7 @@
 import React from 'react';
 import {View, Text, Pressable} from 'react-native';
+import {useSelector} from 'react-redux';
+import {RootState} from '../../app/store';
 
 type props = {
   onPress: () => void;
@@ -7,6 +9,7 @@ type props = {
 };
 
 const Headers = ({onPress, text}: props) => {
+  const count = useSelector((state: RootState) => state.counter.count);
   return (
     <View className="p-2 flex-row">
       <View className="">
@@ -15,7 +18,7 @@ const Headers = ({onPress, text}: props) => {
         </Pressable>
       </View>
       <View className=" flex-1">
-        <Text className="text-xl text-center">Todocount:</Text>
+        <Text className="text-xl text-center">Todocount:{count}</Text>
       </View>
     </View>
   );
