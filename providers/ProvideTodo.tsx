@@ -6,6 +6,10 @@ const url = 'https://todo.mukulsingh.in/api/';
 
 export function ProvideTodo({children}: any) {
   // const [todo, setTodo] = useState<string>("");
+  type FormValues = {
+    title: string;
+    description: string;
+  };
   const [todoList, setTodoList] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
@@ -15,10 +19,10 @@ export function ProvideTodo({children}: any) {
     try {
       const response = await axios.get(url);
       console.log('fetched list');
-      setTodoList(response.data);
+      setTodoList(await response.data);
     } catch (error: any) {
       setErrors(error.errors);
-      console.log('error' + JSON.stringify(error));
+      console.log('error' + JSON.stringify(error) + error);
     }
     setLoading(false);
   }
@@ -26,7 +30,8 @@ export function ProvideTodo({children}: any) {
   async function getTodoItem(id: number) {
     setLoading(true);
     try {
-      const response = await axios.get(url + `/${id}/`);
+      const response = await axios.get(url + `${id}/`);
+      console.log('fetched item');
       return response.data;
     } catch (error: any) {
       setErrors(error.errors);
@@ -38,7 +43,7 @@ export function ProvideTodo({children}: any) {
   async function createTodoItem(data: any) {
     setLoading(true);
     try {
-      const response: any[] = await axios.post(url, data);
+      await axios.post(url, data);
       setTodoList([...todoList, {id: data.id, title: data.title}]);
       console.log('updated list');
     } catch (error: any) {
@@ -51,7 +56,8 @@ export function ProvideTodo({children}: any) {
   async function removeTodoItem(id: number) {
     setLoading(true);
     try {
-      const response = await axios.delete(url + `/${id}/`);
+      await axios.delete(url + `${id}/`);
+      console.log('removed item');
       setTodoList(todoList.filter(item => item.id !== id));
     } catch (error: any) {
       setErrors(error.errors);
@@ -60,10 +66,18 @@ export function ProvideTodo({children}: any) {
     setLoading(false);
   }
 
-  async function updateTodoItem(id: number, data: JSON) {
+  async function updateTodoItem(id: number, data: FormValues) {
     setLoading(true);
     try {
-      const response = await axios.put(url + `/${id}/`, data);
+      await axios.put(url + `${id}/`, data);
+      setTodoList(
+        todoList.map(item => {
+          if (item.id == id) {
+            return {...item, title: data.title, description: data.description};
+          }
+          return item;
+        }),
+      );
     } catch (error: any) {
       setErrors(error.errors);
       console.log('error update' + error);

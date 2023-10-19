@@ -3,9 +3,11 @@ import {useForm} from 'react-hook-form';
 import {View, Button} from 'react-native';
 import CustomInput from '../atoms/CustomInput';
 import useAuth from '../../hooks/useAuth';
+import useTodo from '../../hooks/useTodo';
 
 const LoginForm = ({navigation}: any) => {
   const {signin}: any = useAuth();
+  const {getTodoList}: any = useTodo();
 
   type FormValues = {
     username: string;
@@ -15,6 +17,7 @@ const LoginForm = ({navigation}: any) => {
 
   const onSubmit = (loginFormData: FormValues) => {
     signin(loginFormData);
+    getTodoList();
     navigation.navigate('Home');
   };
 

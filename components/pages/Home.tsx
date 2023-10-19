@@ -5,8 +5,9 @@ import useTodo from '../../hooks/useTodo';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomInput from '../atoms/CustomInput';
 import TodoDisplay from '../molecules/TodoDisplay';
+import Headers from '../molecules/Headers';
 
-const Home = () => {
+const Home = ({navigation}: any) => {
   type FormValues = {
     title: string;
     description: string;
@@ -16,13 +17,12 @@ const Home = () => {
   const {createTodoItem, todoList}: any = useTodo();
 
   const onSubmit = (data: FormValues) => {
-    console.log(data);
     createTodoItem(data);
     reset();
-    console.log(todoList + 'todolist');
   };
   return (
     <SafeAreaView>
+      <Headers />
       <View className="flex justify-center items-center">
         <CustomInput
           style="w-[80vw] border-2 border-slate-200  rounded-lg p-2 m-4"
@@ -39,7 +39,7 @@ const Home = () => {
         <View className="my-2">
           <Button title="Add To do" onPress={handleSubmit(onSubmit)} />
         </View>
-        <TodoDisplay />
+        <TodoDisplay navigation={navigation} />
       </View>
     </SafeAreaView>
   );
