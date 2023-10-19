@@ -12,16 +12,21 @@ export function ProvideTodo({children}: any) {
   };
   const [todoList, setTodoList] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState(null);
-
+  const [errors, setErrors] = useState('');
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Host: 'todo.mukulsingh.in',
+    },
+  };
   async function getTodoList() {
     setLoading(true);
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, config);
       console.log('fetched list');
       setTodoList(await response.data);
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log('error' + JSON.stringify(error) + error);
     }
     setLoading(false);
@@ -34,7 +39,7 @@ export function ProvideTodo({children}: any) {
       console.log('fetched item');
       return response.data;
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log('error' + JSON.stringify(error));
     }
     setLoading(false);
@@ -48,7 +53,7 @@ export function ProvideTodo({children}: any) {
       console.log('updated list');
     } catch (error: any) {
       console.log('error create' + error);
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
     }
     setLoading(false);
   }
@@ -60,7 +65,7 @@ export function ProvideTodo({children}: any) {
       console.log('removed item');
       setTodoList(todoList.filter(item => item.id !== id));
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log(' delete' + error);
     }
     setLoading(false);
@@ -79,7 +84,7 @@ export function ProvideTodo({children}: any) {
         }),
       );
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log('error update' + error);
     }
     setLoading(false);

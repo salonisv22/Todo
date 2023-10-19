@@ -7,6 +7,7 @@ import {ProvideAuth} from '../../providers/ProvideAuth';
 import Home from './Home';
 import {ProvideTodo} from '../../providers/ProvideTodo';
 import ViewEditForm from '../atoms/ViewEditForm';
+import DrawerNavigation from './DrawerNavigation';
 const Stack = createNativeStackNavigator();
 const navigationRef: any = createNavigationContainerRef();
 const Navigation = () => {
@@ -30,8 +31,8 @@ const Navigation = () => {
               }}
             />
             <Stack.Screen
-              name="ViewEdit"
-              component={ViewEditForm}
+              name="Drawer"
+              component={DrawerNavigation}
               options={{
                 headerShown: false,
               }}

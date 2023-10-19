@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
-import {View, Button} from 'react-native';
+import {View, Button, Text} from 'react-native';
 import useTodo from '../../hooks/useTodo';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomInput from '../atoms/CustomInput';
@@ -14,7 +14,7 @@ const Home = ({navigation}: any) => {
   };
 
   const {control, handleSubmit, reset} = useForm<FormValues>();
-  const {createTodoItem, todoList}: any = useTodo();
+  const {createTodoItem, loading, error}: any = useTodo();
 
   const onSubmit = (data: FormValues) => {
     createTodoItem(data);
@@ -22,7 +22,7 @@ const Home = ({navigation}: any) => {
   };
   return (
     <SafeAreaView>
-      <Headers />
+      {/* <Headers /> */}
       <View className="flex justify-center items-center">
         <CustomInput
           style="w-[80vw] border-2 border-slate-200  rounded-lg p-2 m-4"
@@ -39,6 +39,13 @@ const Home = ({navigation}: any) => {
         <View className="my-2">
           <Button title="Add To do" onPress={handleSubmit(onSubmit)} />
         </View>
+        {loading ? (
+          <Text>Loading...</Text>
+        ) : error ? (
+          <Text>Error</Text>
+        ) : (
+          <TodoDisplay navigation={navigation} />
+        )}
         <TodoDisplay navigation={navigation} />
       </View>
     </SafeAreaView>
