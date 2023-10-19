@@ -5,7 +5,6 @@ import useTodo from '../../hooks/useTodo';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomInput from '../atoms/CustomInput';
 import TodoDisplay from '../molecules/TodoDisplay';
-import Headers from '../molecules/Headers';
 import DrawerLayout from '../molecules/DrawerLayout';
 
 const Home = ({navigation}: any) => {
@@ -15,12 +14,17 @@ const Home = ({navigation}: any) => {
   };
 
   const {control, handleSubmit, reset} = useForm<FormValues>();
-  const {createTodoItem, loading, error}: any = useTodo();
+  const {createTodoItem, loading, getTodoList}: any = useTodo();
 
   const onSubmit = (data: FormValues) => {
     createTodoItem(data);
     reset();
   };
+
+  useEffect(() => {
+    getTodoList();
+  }, []);
+
   return (
     <DrawerLayout>
       <SafeAreaView>
@@ -42,12 +46,9 @@ const Home = ({navigation}: any) => {
           </View>
           {loading ? (
             <Text>Loading...</Text>
-          ) : error ? (
-            <Text>Error</Text>
           ) : (
             <TodoDisplay navigation={navigation} />
           )}
-          <TodoDisplay navigation={navigation} />
         </View>
       </SafeAreaView>
     </DrawerLayout>

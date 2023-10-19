@@ -48,6 +48,7 @@ export function ProvideAuth({children}: any) {
       value={{
         user: user,
         signin: signin,
+        signout: signout,
       }}>
       {loading ? <Text>Loading...</Text> : children}
     </loginContext.Provider>

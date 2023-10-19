@@ -7,8 +7,9 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 
 const TodoDisplay = ({navigation}: any) => {
   const {todoList}: any = useTodo();
+  console.log(todoList, ' in Tododisplay');
   return (
-    <ScrollView>
+    <ScrollView className="h-[60vh]">
       {todoList.map((item: any) => {
         return (
           <TodoItem

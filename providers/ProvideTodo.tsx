@@ -24,7 +24,9 @@ export function ProvideTodo({children}: any) {
     try {
       const response = await axios.get(url, config);
       console.log('fetched list');
-      setTodoList(await response.data);
+
+      setTodoList(response.data);
+      console.log(todoList, response.data);
     } catch (error: any) {
       setErrors(JSON.stringify(error));
       console.log('error' + JSON.stringify(error) + error);
@@ -48,8 +50,11 @@ export function ProvideTodo({children}: any) {
   async function createTodoItem(data: any) {
     setLoading(true);
     try {
-      await axios.post(url, data);
-      setTodoList([...todoList, {id: data.id, title: data.title}]);
+      const response = await axios.post(url, data);
+      setTodoList([
+        ...todoList,
+        {id: response.data.id, title: response.data.title},
+      ]);
       console.log('updated list');
     } catch (error: any) {
       console.log('error create' + error);
