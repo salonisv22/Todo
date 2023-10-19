@@ -7,7 +7,7 @@ import CustomInput from '../atoms/CustomInput';
 import TodoDisplay from '../molecules/TodoDisplay';
 import DrawerLayout from '../molecules/DrawerLayout';
 
-const Home = ({navigation}: any) => {
+const Home = () => {
   type FormValues = {
     title: string;
     description: string;
@@ -44,11 +44,7 @@ const Home = ({navigation}: any) => {
           <View className="my-2">
             <Button title="Add To do" onPress={handleSubmit(onSubmit)} />
           </View>
-          {loading ? (
-            <Text>Loading...</Text>
-          ) : (
-            <TodoDisplay navigation={navigation} />
-          )}
+          {loading ? <Text>Loading...</Text> : <TodoDisplay />}
         </View>
       </SafeAreaView>
     </DrawerLayout>

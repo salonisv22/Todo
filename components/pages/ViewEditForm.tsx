@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {useForm} from 'react-hook-form';
-import {Text, View, Button} from 'react-native';
+import {View, Button} from 'react-native';
 import CustomInput from '../atoms/CustomInput';
 import useTodo from '../../hooks/useTodo';
 import GlobalButton from '../atoms/GlobalButton';
@@ -60,9 +60,7 @@ const ViewEditForm = ({route}: any) => {
             control={control}
             name="title"
             placeholder="Title"
-            // setValue={id != -1 ? title : ''}
             editable={action != 'view'}
-            // selectTextOnFocus={action != 'view'}
             defaultValues={title}
           />
           <CustomInput
@@ -72,7 +70,6 @@ const ViewEditForm = ({route}: any) => {
             placeholder="Password"
             setValue={id != -1 ? description : ''}
             editable={action != 'view'}
-            // selectTextOnFocus={action != 'view'}
             defaultValues={description}
           />
           {action === 'view' ? null : (

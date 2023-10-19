@@ -3,7 +3,7 @@ import {Modal, Alert, View, Text, Pressable} from 'react-native';
 import GlobalButton from './GlobalButton';
 import {useTheme} from '@react-navigation/native';
 import useTodo from '../../hooks/useTodo';
-import Navigation from '../pages/Navigation';
+import {ref} from '../pages/Navigation';
 
 const OptionsModal = ({
   modalVisible,
@@ -11,7 +11,6 @@ const OptionsModal = ({
   id,
   title,
   description,
-  navigation,
 }: any) => {
   const {removeTodoItem}: any = useTodo();
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
@@ -62,13 +61,14 @@ const OptionsModal = ({
               border={0}
               action={() => {
                 setModalVisible(false);
-                navigation.navigate('ViewEdit', {
-                  id: id,
-                  title: title,
-                  description: description,
-                  action: 'view',
-                  navigation: navigation,
-                });
+                if (ref.isReady()) {
+                  ref.navigate('ViewEdit', {
+                    id: id,
+                    title: title,
+                    description: description,
+                    action: 'view',
+                  });
+                }
               }}
             />
             <GlobalButton
@@ -78,13 +78,14 @@ const OptionsModal = ({
               border={0}
               action={() => {
                 setModalVisible(false);
-                navigation.navigate('ViewEdit', {
-                  id: id,
-                  title: title,
-                  description: description,
-                  action: 'edit',
-                  navigation: navigation,
-                });
+                if (ref.isReady()) {
+                  ref.navigate('ViewEdit', {
+                    id: id,
+                    title: title,
+                    description: description,
+                    action: 'edit',
+                  });
+                }
               }}
             />
             <GlobalButton

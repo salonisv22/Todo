@@ -5,7 +5,7 @@ import CustomInput from '../atoms/CustomInput';
 import TodoItem from './TodoItem';
 import {SafeAreaView} from 'react-native-safe-area-context';
 
-const TodoDisplay = ({navigation}: any) => {
+const TodoDisplay = () => {
   const {todoList}: any = useTodo();
   console.log(todoList, ' in Tododisplay');
   return (
@@ -18,7 +18,6 @@ const TodoDisplay = ({navigation}: any) => {
             id={item.id}
             title={item.title}
             description={item.description}
-            navigation={navigation}
           />
         );
       })}

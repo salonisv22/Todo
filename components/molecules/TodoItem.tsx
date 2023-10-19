@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View, Text, Pressable, Modal, Alert} from 'react-native';
 import OptionsModal from '../atoms/OptionsModal';
 
-const TodoItem = ({id, title, description, navigation}: any) => {
+const TodoItem = ({id, title, description}: any) => {
   const [modalVisible, setModalVisible] = useState(false);
   return (
     <View className="flex-row justify-center items-center border-2 w-[80vw] p-2 bg-slate-200 rounded-lg m-2">
@@ -19,7 +19,6 @@ const TodoItem = ({id, title, description, navigation}: any) => {
         id={id}
         title={title}
         description={description}
-        navigation={navigation}
       />
     </View>
   );
