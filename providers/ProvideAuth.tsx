@@ -1,13 +1,24 @@
-import React, {createContext, useContext, useState} from 'react';
-
+import React, {createContext, useContext, useEffect, useState} from 'react';
+import {Text} from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const loginContext = createContext({});
 
 export function ProvideAuth({children}: any) {
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState(null);
+
+  async function getUserFromAsync() {
+    setLoading(true);
+    const response = await AsyncStorage.getItem('username');
+    setUser(response);
+    setLoading(false);
+  }
+
+  useEffect(() => {
+    getUserFromAsync();
+  }, []);
 
   async function signin(data: any) {
     setLoading(true);
@@ -38,7 +49,7 @@ export function ProvideAuth({children}: any) {
         user: user,
         signin: signin,
       }}>
-      {children}
+      {loading ? <Text>Loading...</Text> : children}
     </loginContext.Provider>
   );
 }

@@ -6,6 +6,7 @@ import {SafeAreaView} from 'react-native-safe-area-context';
 import CustomInput from '../atoms/CustomInput';
 import TodoDisplay from '../molecules/TodoDisplay';
 import Headers from '../molecules/Headers';
+import DrawerLayout from '../molecules/DrawerLayout';
 
 const Home = ({navigation}: any) => {
   type FormValues = {
@@ -21,34 +22,35 @@ const Home = ({navigation}: any) => {
     reset();
   };
   return (
-    <SafeAreaView>
-      {/* <Headers /> */}
-      <View className="flex justify-center items-center">
-        <CustomInput
-          style="w-[80vw] border-2 border-slate-200  rounded-lg p-2 m-4"
-          control={control}
-          name="title"
-          placeholder="Todo"
-        />
-        <CustomInput
-          style="w-[80vw] border-2 border-slate-200  rounded-lg p-2"
-          control={control}
-          name="description"
-          placeholder="Description"
-        />
-        <View className="my-2">
-          <Button title="Add To do" onPress={handleSubmit(onSubmit)} />
-        </View>
-        {loading ? (
-          <Text>Loading...</Text>
-        ) : error ? (
-          <Text>Error</Text>
-        ) : (
+    <DrawerLayout>
+      <SafeAreaView>
+        <View className="flex justify-center items-center">
+          <CustomInput
+            style="w-[80vw] border-2 border-slate-200  rounded-lg p-2 m-4"
+            control={control}
+            name="title"
+            placeholder="Todo"
+          />
+          <CustomInput
+            style="w-[80vw] border-2 border-slate-200  rounded-lg p-2"
+            control={control}
+            name="description"
+            placeholder="Description"
+          />
+          <View className="my-2">
+            <Button title="Add To do" onPress={handleSubmit(onSubmit)} />
+          </View>
+          {loading ? (
+            <Text>Loading...</Text>
+          ) : error ? (
+            <Text>Error</Text>
+          ) : (
+            <TodoDisplay navigation={navigation} />
+          )}
           <TodoDisplay navigation={navigation} />
-        )}
-        <TodoDisplay navigation={navigation} />
-      </View>
-    </SafeAreaView>
+        </View>
+      </SafeAreaView>
+    </DrawerLayout>
   );
 };
 

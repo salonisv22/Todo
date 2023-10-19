@@ -18,7 +18,7 @@ const LoginForm = ({navigation}: any) => {
   const onSubmit = (loginFormData: FormValues) => {
     signin(loginFormData);
     getTodoList();
-    navigation.navigate('Drawer');
+    navigation.replace('Home');
   };
 
   return (

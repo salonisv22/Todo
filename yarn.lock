@@ -5951,6 +5951,13 @@
   "resolved" "https://registry.npmjs.org/react-is/-/react-is-17.0.2.tgz"
   "version" "17.0.2"
 
+"react-native-drawer-layout@^4.0.0-alpha.1":
+  "integrity" "sha512-WVJZKzm/7BFtri6jRfpQVgpZYqkiGNEn5gAy8+rwaUOin/m8E73WEjQwJ89IofgkInlPfW3HVUbA2sVj9tafRw=="
+  "resolved" "https://registry.npmjs.org/react-native-drawer-layout/-/react-native-drawer-layout-4.0.0-alpha.1.tgz"
+  "version" "4.0.0-alpha.1"
+  dependencies:
+    "use-latest-callback" "^0.1.5"
+
 "react-native-gesture-handler@^2.13.3", "react-native-gesture-handler@>= 1.0.0":
   "integrity" "sha512-6sNXtmRfYxQWgH0TjQX03QQ4UfCyM8jX1Ee1jXc3uNgefk03qapGGxZ2noXodGWKHzpsqMxB0O1lFLGew0GRrw=="
   "resolved" "https://registry.npmjs.org/react-native-gesture-handler/-/react-native-gesture-handler-2.13.3.tgz"
