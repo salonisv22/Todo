@@ -22,21 +22,25 @@ const Home = () => {
         <View className="flex justify-center items-center">
           {loading ? <Text>Loading...</Text> : <TodoDisplay />}
         </View>
-        <View className="m-auto">
-          <Draggable>
-            <GlobalButton
-              size="md"
-              shape="rd"
-              border={2}
-              text="+"
-              filled={true}
-              action={() => {
-                if (ref.isReady()) {
-                  ref.navigate('AddTodo');
-                }
-              }}
-            />
-          </Draggable>
+        <View className="ml-[35%]">
+          {loading ? (
+            <></>
+          ) : (
+            <Draggable shouldReverse>
+              <GlobalButton
+                size="md"
+                shape="rd"
+                border={2}
+                text="+"
+                filled={true}
+                action={() => {
+                  if (ref.isReady()) {
+                    ref.navigate('AddTodo');
+                  }
+                }}
+              />
+            </Draggable>
+          )}
         </View>
       </SafeAreaView>
     </DrawerLayout>

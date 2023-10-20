@@ -1,7 +1,8 @@
 import React from 'react';
-import {ScrollView} from 'react-native';
+import {Pressable, ScrollView} from 'react-native';
 import useTodo from '../../hooks/useTodo';
 import TodoItem from './TodoItem';
+import {ref} from '../pages/Navigation';
 
 const TodoDisplay = () => {
   const {todoList}: any = useTodo();
@@ -10,13 +11,24 @@ const TodoDisplay = () => {
     <ScrollView className="h-[70vh] m-2">
       {todoList.map((item: any) => {
         return (
-          <TodoItem
-            key={item.id}
-            item={item}
-            id={item.id}
-            title={item.title}
-            description={item.description}
-          />
+          <Pressable
+            onPress={() => {
+              if (ref.isReady()) {
+                ref.navigate('ViewEdit', {
+                  id: item.id,
+                  title: item.title,
+                  description: item.description,
+                });
+              }
+            }}>
+            <TodoItem
+              key={item.id}
+              item={item}
+              id={item.id}
+              title={item.title}
+              description={item.description}
+            />
+          </Pressable>
         );
       })}
     </ScrollView>
