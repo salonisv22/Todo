@@ -1,15 +1,19 @@
 import React from 'react';
+
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createNavigationContainerRef} from '@react-navigation/native';
-import LoginForm from './LoginForm';
 
+import LoginForm from './LoginForm';
+import AddTodo from './AddTodo';
 import Home from './Home';
 import ViewEditForm from './ViewEditForm';
-import {Button} from 'react-native';
+
 import useAuth from '../../hooks/useAuth';
+
 const Stack = createNativeStackNavigator();
 const navigationRef: any = createNavigationContainerRef();
+
 const Navigation = () => {
   const {user}: any = useAuth();
   console.log('user', user);
@@ -34,6 +38,13 @@ const Navigation = () => {
         <Stack.Screen
           name="ViewEdit"
           component={ViewEditForm}
+          options={{
+            headerShown: false,
+          }}
+        />
+        <Stack.Screen
+          name="AddTodo"
+          component={AddTodo}
           options={{
             headerShown: false,
           }}

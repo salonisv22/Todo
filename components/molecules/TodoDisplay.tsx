@@ -1,15 +1,13 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {ScrollView} from 'react-native';
 import useTodo from '../../hooks/useTodo';
-import CustomInput from '../atoms/CustomInput';
 import TodoItem from './TodoItem';
-import {SafeAreaView} from 'react-native-safe-area-context';
 
 const TodoDisplay = () => {
   const {todoList}: any = useTodo();
   console.log(todoList, ' in Tododisplay');
   return (
-    <ScrollView className="h-[60vh]">
+    <ScrollView className="h-[70vh] m-2">
       {todoList.map((item: any) => {
         return (
           <TodoItem
