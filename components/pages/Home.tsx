@@ -22,13 +22,13 @@ const Home = () => {
         <View className="flex justify-center items-center">
           {loading ? <Text>Loading...</Text> : <TodoDisplay />}
         </View>
-        <View className="ml-[35%]">
+        <View className="ml-[40%]">
           {loading ? (
             <></>
           ) : (
             <Draggable shouldReverse>
               <GlobalButton
-                size="md"
+                size="2xl"
                 shape="rd"
                 border={2}
                 text="+"

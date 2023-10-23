@@ -18,6 +18,7 @@ const TodoDisplay = () => {
                   id: item.id,
                   title: item.title,
                   description: item.description,
+                  action: 'view',
                 });
               }
             }}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {Alert, Pressable, Text, TextInput, View} from 'react-native';
-type ButtonSize = 'sm' | 'md' | 'lg';
+type ButtonSize = 'sm' | 'md' | 'lg' | '2xl';
 type ButtonShape = 'rd-box' | 'box' | 'rd';
 
 type Props = {
@@ -20,7 +20,7 @@ const GlobalButton = ({
   filled = false,
 }: Props) => {
   const shapeConfig = {
-    rd: 'rounded-full w-[100] h-[100]',
+    rd: 'rounded-full w-[70] h-[70]',
     'rd-box': 'rounded-[24px]',
     box: '',
   };
@@ -29,7 +29,7 @@ const GlobalButton = ({
       <Pressable
         className={`border-${border} flex-row justify-center items-center ${
           shapeConfig[shape]
-        } ${filled ? 'bg-slate-200' : ''}`}
+        } ${filled ? 'bg-slate-500' : ''}`}
         onPress={() => action()}>
         <Text className={`text-${size}`}>{text}</Text>
       </Pressable>

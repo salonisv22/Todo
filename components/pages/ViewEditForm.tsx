@@ -20,7 +20,12 @@ const ViewEditForm = ({route}: any) => {
     description: string;
     action: string;
   } = params;
-  const {control, handleSubmit, reset} = useForm();
+  const {control, handleSubmit, reset} = useForm({
+    defaultValues: {
+      title: title,
+      description: description,
+    },
+  });
   const {updateTodoItem}: any = useTodo();
   type FormValues = {
     title: string;
@@ -36,13 +41,6 @@ const ViewEditForm = ({route}: any) => {
       ref.navigate('Home');
     }
   };
-
-  useEffect(() => {
-    let defaultValues: any = {};
-    defaultValues.title = `${title}`;
-    defaultValues.description = `${description}`;
-    reset({...defaultValues});
-  }, [title, description]);
 
   return (
     <DrawerLayout>

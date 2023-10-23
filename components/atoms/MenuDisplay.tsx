@@ -19,7 +19,7 @@ const MenuDisplay = ({id, title, description, showMenuText}: any) => {
         id: id,
         title: title,
         description: description,
-        action: 'view',
+        action: 'edit',
       });
     }
   };
