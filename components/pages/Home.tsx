@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {View, Button, Text, Pressable} from 'react-native';
+import {View, Text} from 'react-native';
 import useTodo from '../../hooks/useTodo';
 import {SafeAreaView} from 'react-native-safe-area-context';
 

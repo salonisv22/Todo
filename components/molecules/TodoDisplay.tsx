@@ -12,23 +12,16 @@ const TodoDisplay = () => {
       {todoList.map((item: any) => {
         return (
           <Pressable
+            key={item.id}
             onPress={() => {
               if (ref.isReady()) {
                 ref.navigate('ViewEdit', {
                   id: item.id,
-                  title: item.title,
-                  description: item.description,
                   action: 'view',
                 });
               }
             }}>
-            <TodoItem
-              key={item.id}
-              item={item}
-              id={item.id}
-              title={item.title}
-              description={item.description}
-            />
+            <TodoItem item={item} title={item.title} id={item.id} />
           </Pressable>
         );
       })}

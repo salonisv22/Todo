@@ -1,4 +1,4 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useState} from 'react';
 import axios from 'axios';
 import {useDispatch} from 'react-redux';
 import {increment, decrement, setAmount} from '../feature/countTodoSlice';
@@ -43,7 +43,8 @@ export function ProvideTodo({children}: any) {
     setLoading(true);
     try {
       const response = await axios.get(url + `${id}/`);
-      console.log('fetched item');
+      console.log('fetched item', response.data);
+      setLoading(false);
       return response.data;
     } catch (error: any) {
       setErrors(JSON.stringify(error));

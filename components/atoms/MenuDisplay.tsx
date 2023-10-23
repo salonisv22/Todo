@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
 
-import {Menu, MenuItem, MenuDivider} from 'react-native-material-menu';
+import {Menu, MenuItem} from 'react-native-material-menu';
 import {ref} from '../pages/Navigation';
 import GlobalButton from './GlobalButton';
 import {Modal, View, Text} from 'react-native';
 import useTodo from '../../hooks/useTodo';
 
-const MenuDisplay = ({id, title, description, showMenuText}: any) => {
+const MenuDisplay = ({id, showMenuText}: any) => {
   const [visible, setVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const {removeTodoItem}: any = useTodo();
@@ -17,8 +17,6 @@ const MenuDisplay = ({id, title, description, showMenuText}: any) => {
     if (ref.isReady()) {
       ref.navigate('ViewEdit', {
         id: id,
-        title: title,
-        description: description,
         action: 'edit',
       });
     }

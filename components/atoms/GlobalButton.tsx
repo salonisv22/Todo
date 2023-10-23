@@ -1,5 +1,5 @@
 import React from 'react';
-import {Alert, Pressable, Text, TextInput, View} from 'react-native';
+import {Pressable, Text, View} from 'react-native';
 type ButtonSize = 'sm' | 'md' | 'lg' | '2xl';
 type ButtonShape = 'rd-box' | 'box' | 'rd';
 

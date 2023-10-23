@@ -1,5 +1,4 @@
 import * as React from 'react';
-import {Pressable, Text} from 'react-native';
 import {Drawer} from 'react-native-drawer-layout';
 import Headers from './Headers';
 import GlobalButton from '../atoms/GlobalButton';
