@@ -18,7 +18,7 @@ const TodoDisplay = () => {
               key={item.id}
               onPress={() => {
                 if (ref.isReady()) {
-                  ref.navigate('ViewEdit', {
+                  ref.navigate('ViewTodo', {
                     id: item.id,
                     action: 'view',
                   });

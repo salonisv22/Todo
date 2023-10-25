@@ -35,7 +35,7 @@ const Home = () => {
                 filled={true}
                 action={() => {
                   if (ref.isReady()) {
-                    ref.navigate('AddTodo');
+                    ref.navigate('AddTodo', {action: 'create'});
                   }
                 }}
               />

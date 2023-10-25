@@ -15,7 +15,7 @@ const MenuDisplay = ({id, showMenuText}: any) => {
   const showMenu = () => setVisible(true);
   const editAction = () => {
     if (ref.isReady()) {
-      ref.navigate('ViewEdit', {
+      ref.navigate('AddTodo', {
         id: id,
         action: 'edit',
       });

@@ -7,7 +7,7 @@ import {createNavigationContainerRef} from '@react-navigation/native';
 import LoginForm from './LoginForm';
 import AddTodo from './AddTodo';
 import Home from './Home';
-import ViewEditForm from './ViewEditForm';
+import ViewTodo from './ViewTodo';
 
 import useAuth from '../../hooks/useAuth';
 
@@ -36,8 +36,8 @@ const Navigation = () => {
           }}
         />
         <Stack.Screen
-          name="ViewEdit"
-          component={ViewEditForm}
+          name="ViewTodo"
+          component={ViewTodo}
           options={{
             headerShown: false,
           }}
