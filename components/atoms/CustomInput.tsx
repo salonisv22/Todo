@@ -6,7 +6,6 @@ const CustomInput = ({
   style,
   control,
   name,
-  rules = {},
   placeholder,
   editable = true,
   selectTextOnFocus = true,
@@ -15,7 +14,7 @@ const CustomInput = ({
     <Controller
       control={control}
       name={name}
-      rules={rules}
+      rules={{required: true}}
       render={({field: {value, onChange}}) => (
         <GlobalInput
           style={style}

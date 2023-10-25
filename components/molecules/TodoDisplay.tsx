@@ -1,26 +1,37 @@
 import React from 'react';
-import {View, Text, ScrollView} from 'react-native';
+import {Pressable, ScrollView, Text} from 'react-native';
 import useTodo from '../../hooks/useTodo';
-import CustomInput from '../atoms/CustomInput';
 import TodoItem from './TodoItem';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {ref} from '../pages/Navigation';
+import useAuth from '../../hooks/useAuth';
 
-const TodoDisplay = ({navigation}: any) => {
+const TodoDisplay = () => {
   const {todoList}: any = useTodo();
+  const {user}: any = useAuth();
+  console.log(todoList, ' in Tododisplay');
   return (
-    <ScrollView>
-      {todoList.map((item: any) => {
-        return (
-          <TodoItem
-            key={item.id}
-            item={item}
-            id={item.id}
-            title={item.title}
-            description={item.description}
-            navigation={navigation}
-          />
-        );
-      })}
+    <ScrollView className="h-[70vh] m-2">
+      {todoList.length != 0 ? (
+        todoList.map((item: any) => {
+          return (
+            <Pressable
+              key={item.id}
+              onPress={() => {
+                if (ref.isReady()) {
+                  ref.navigate('ViewTodo', {
+                    id: item.id,
+                    action: 'view',
+                  });
+                }
+              }}>
+              <TodoItem item={item} title={item.title} id={item.id} />
+            </Pressable>
+          );
+        })
+      ) : (
+        <Text className="text-3xl">Hello {user}! Add a todo item.</Text>
+      )}
+      {}
     </ScrollView>
   );
 };

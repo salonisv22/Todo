@@ -1,8 +1,11 @@
-import React, {createContext, useContext, useState} from 'react';
+import React, {createContext, useState} from 'react';
 import axios from 'axios';
-export const todoContext = createContext({});
+import {useDispatch} from 'react-redux';
+import {increment, decrement, setAmount} from '../feature/countTodoSlice';
 
 const url = 'https://todo.mukulsingh.in/api/';
+
+export const todoContext = createContext({});
 
 export function ProvideTodo({children}: any) {
   // const [todo, setTodo] = useState<string>("");
@@ -12,16 +15,25 @@ export function ProvideTodo({children}: any) {
   };
   const [todoList, setTodoList] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
-  const [errors, setErrors] = useState(null);
-
+  const [errors, setErrors] = useState('');
+  const dispatch = useDispatch();
+  const config = {
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Host: 'todo.mukulsingh.in',
+    },
+  };
   async function getTodoList() {
     setLoading(true);
     try {
-      const response = await axios.get(url);
+      const response = await axios.get(url, config);
       console.log('fetched list');
-      setTodoList(await response.data);
+
+      setTodoList(response.data);
+      dispatch(setAmount(response.data.length));
+      console.log(todoList, response.data);
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log('error' + JSON.stringify(error) + error);
     }
     setLoading(false);
@@ -31,10 +43,11 @@ export function ProvideTodo({children}: any) {
     setLoading(true);
     try {
       const response = await axios.get(url + `${id}/`);
-      console.log('fetched item');
+      console.log('fetched item', response.data);
+      setLoading(false);
       return response.data;
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log('error' + JSON.stringify(error));
     }
     setLoading(false);
@@ -43,12 +56,16 @@ export function ProvideTodo({children}: any) {
   async function createTodoItem(data: any) {
     setLoading(true);
     try {
-      await axios.post(url, data);
-      setTodoList([...todoList, {id: data.id, title: data.title}]);
+      const response = await axios.post(url, data);
+      setTodoList([
+        ...todoList,
+        {id: response.data.id, title: response.data.title},
+      ]);
+      dispatch(increment());
       console.log('updated list');
     } catch (error: any) {
       console.log('error create' + error);
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
     }
     setLoading(false);
   }
@@ -59,8 +76,9 @@ export function ProvideTodo({children}: any) {
       await axios.delete(url + `${id}/`);
       console.log('removed item');
       setTodoList(todoList.filter(item => item.id !== id));
+      dispatch(decrement());
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log(' delete' + error);
     }
     setLoading(false);
@@ -79,7 +97,7 @@ export function ProvideTodo({children}: any) {
         }),
       );
     } catch (error: any) {
-      setErrors(error.errors);
+      setErrors(JSON.stringify(error));
       console.log('error update' + error);
     }
     setLoading(false);

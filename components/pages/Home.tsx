@@ -1,47 +1,49 @@
 import React, {useEffect} from 'react';
-import {useForm} from 'react-hook-form';
-import {View, Button} from 'react-native';
+import {View, Text} from 'react-native';
 import useTodo from '../../hooks/useTodo';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import CustomInput from '../atoms/CustomInput';
+
 import TodoDisplay from '../molecules/TodoDisplay';
-import Headers from '../molecules/Headers';
+import DrawerLayout from '../molecules/DrawerLayout';
+import Draggable from 'react-native-draggable';
+import GlobalButton from '../atoms/GlobalButton';
+import {ref} from '../pages/Navigation';
 
-const Home = ({navigation}: any) => {
-  type FormValues = {
-    title: string;
-    description: string;
-  };
+const Home = () => {
+  const {loading, getTodoList}: any = useTodo();
 
-  const {control, handleSubmit, reset} = useForm<FormValues>();
-  const {createTodoItem, todoList}: any = useTodo();
+  useEffect(() => {
+    getTodoList();
+  }, []);
 
-  const onSubmit = (data: FormValues) => {
-    createTodoItem(data);
-    reset();
-  };
   return (
-    <SafeAreaView>
-      <Headers />
-      <View className="flex justify-center items-center">
-        <CustomInput
-          style="w-[80vw] border-2 border-slate-200  rounded-lg p-2 m-4"
-          control={control}
-          name="title"
-          placeholder="Todo"
-        />
-        <CustomInput
-          style="w-[80vw] border-2 border-slate-200  rounded-lg p-2"
-          control={control}
-          name="description"
-          placeholder="Description"
-        />
-        <View className="my-2">
-          <Button title="Add To do" onPress={handleSubmit(onSubmit)} />
+    <DrawerLayout>
+      <SafeAreaView>
+        <View className="flex justify-center items-center">
+          {loading ? <Text>Loading...</Text> : <TodoDisplay />}
         </View>
-        <TodoDisplay navigation={navigation} />
-      </View>
-    </SafeAreaView>
+        <View className="ml-[40%]">
+          {loading ? (
+            <></>
+          ) : (
+            <Draggable shouldReverse>
+              <GlobalButton
+                size="2xl"
+                shape="rd"
+                border={2}
+                text="+"
+                filled={true}
+                action={() => {
+                  if (ref.isReady()) {
+                    ref.navigate('AddTodo', {action: 'create'});
+                  }
+                }}
+              />
+            </Draggable>
+          )}
+        </View>
+      </SafeAreaView>
+    </DrawerLayout>
   );
 };
 
