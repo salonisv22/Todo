@@ -17,6 +17,7 @@ const GlobalInput = ({
         value={value}
         editable={editable}
         selectTextOnFocus={selectTextOnFocus}
+        multiline={true}
       />
     </View>
   );

@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {Menu, MenuItem} from 'react-native-material-menu';
 import {ref} from '../pages/Navigation';
 import GlobalButton from './GlobalButton';
-import {Modal, View, Text} from 'react-native';
+import {Modal, View, Text, Platform} from 'react-native';
 import useTodo from '../../hooks/useTodo';
 
 const MenuDisplay = ({id, showMenuText}: any) => {
@@ -23,7 +23,10 @@ const MenuDisplay = ({id, showMenuText}: any) => {
   };
   const deleteAction = () => {
     setVisible(false);
-    setDeleteModalVisible(true);
+    setTimeout(
+      () => setDeleteModalVisible(true),
+      Platform.OS === 'ios' ? 400 : 0,
+    );
   };
 
   return (
