@@ -92,7 +92,6 @@ export const countTodoSlice = createSlice({
     });
 
     builder.addCase(createTodoItem.pending, state => {
-      console.log('load');
       state.loading = true;
     });
     builder.addCase(createTodoItem.fulfilled, (state, action) => {

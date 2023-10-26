@@ -46,7 +46,6 @@ const AddTodo = ({route}: any) => {
   useEffect(() => {
     if (action == 'edit') {
       getData();
-      console.log('fetchedData', fetchedData);
     }
   }, []);
   useEffect(() => {
