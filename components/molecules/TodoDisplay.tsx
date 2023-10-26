@@ -1,12 +1,12 @@
 import React from 'react';
 import {Pressable, ScrollView, Text} from 'react-native';
-import useTodo from '../../hooks/useTodo';
 import TodoItem from './TodoItem';
 import {ref} from '../pages/Navigation';
 import useAuth from '../../hooks/useAuth';
+import {useSelector} from 'react-redux';
 
 const TodoDisplay = () => {
-  const {todoList}: any = useTodo();
+  const todoList = useSelector((state: any) => state.counter.todoList);
   const {user}: any = useAuth();
   console.log(todoList, ' in Tododisplay');
   return (

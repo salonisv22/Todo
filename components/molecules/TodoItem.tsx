@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import MenuDisplay from '../atoms/MenuDisplay';
-const TodoItem = ({id, title, description}: any) => {
+import MenuDisplay from './MenuDisplay';
+const TodoItem = ({id, title}: any) => {
   return (
     <View>
       <View className="flex-row justify-center items-center border-2 w-[80vw] p-2 bg-slate-200 rounded-lg m-2">
