@@ -1,5 +1,5 @@
 import React from 'react';
-import {Pressable, ScrollView, Text} from 'react-native';
+import {Pressable, View, Text} from 'react-native';
 import TodoItem from './TodoItem';
 import {ref} from '../pages/Navigation';
 import useAuth from '../../hooks/useAuth';
@@ -10,7 +10,7 @@ const TodoDisplay = () => {
   const todoList = useSelector((state: any) => state.counter.todoList);
   const {user}: any = useAuth();
   return (
-    <ScrollView className="h-[70vh] m-2">
+    <View className="h-[70vh] m-2">
       {todoList.length != 0 ? (
         <FlatList
           data={todoList}
@@ -33,8 +33,7 @@ const TodoDisplay = () => {
       ) : (
         <Text className="text-3xl">Hello {user}! Add a todo item.</Text>
       )}
-      {}
-    </ScrollView>
+    </View>
   );
 };
 
