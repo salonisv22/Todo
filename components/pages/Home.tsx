@@ -1,19 +1,20 @@
 import React, {useEffect} from 'react';
 import {View, Text} from 'react-native';
-import useTodo from '../../hooks/useTodo';
 import {SafeAreaView} from 'react-native-safe-area-context';
-
 import TodoDisplay from '../molecules/TodoDisplay';
 import DrawerLayout from '../molecules/DrawerLayout';
 import Draggable from 'react-native-draggable';
 import GlobalButton from '../atoms/GlobalButton';
 import {ref} from '../pages/Navigation';
+import {getTodoList} from '../../feature/countTodoSlice';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Home = () => {
-  const {loading, getTodoList}: any = useTodo();
+  const dispatch = useDispatch<any>();
+  const loading = useSelector((state: any) => state.counter.loading);
 
   useEffect(() => {
-    getTodoList();
+    dispatch(getTodoList());
   }, []);
 
   return (

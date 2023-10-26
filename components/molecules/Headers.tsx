@@ -9,7 +9,9 @@ type props = {
 };
 
 const Headers = ({onPress, text}: props) => {
-  const count = useSelector((state: RootState) => state.counter.count);
+  const count = useSelector(
+    (state: RootState) => state.counter.todoList,
+  ).length;
   return (
     <View className="p-2 flex-row">
       <View className="">

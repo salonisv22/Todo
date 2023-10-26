@@ -1,15 +1,15 @@
 import React, {useState} from 'react';
-
 import {Menu, MenuItem} from 'react-native-material-menu';
 import {ref} from '../pages/Navigation';
-import GlobalButton from './GlobalButton';
+import GlobalButton from '../atoms/GlobalButton';
 import {Modal, View, Text, Platform} from 'react-native';
-import useTodo from '../../hooks/useTodo';
+import {removeTodoItem} from '../../feature/countTodoSlice';
+import {useDispatch} from 'react-redux';
 
 const MenuDisplay = ({id, showMenuText}: any) => {
   const [visible, setVisible] = useState(false);
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
-  const {removeTodoItem}: any = useTodo();
+  const dispatch = useDispatch<any>();
 
   const hideMenu = () => setVisible(false);
   const showMenu = () => setVisible(true);
@@ -46,7 +46,7 @@ const MenuDisplay = ({id, showMenuText}: any) => {
               text="Yes"
               shape="rd-box"
               border={0}
-              action={() => removeTodoItem(id)}
+              action={() => dispatch(removeTodoItem(id))}
             />
             <GlobalButton
               size="md"

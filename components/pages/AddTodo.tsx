@@ -1,34 +1,37 @@
 import React, {useEffect, useState} from 'react';
 import {View, Button} from 'react-native';
 import CustomInput from '../atoms/CustomInput';
-import useTodo from '../../hooks/useTodo';
 import {useForm} from 'react-hook-form';
 import DrawerLayout from '../molecules/DrawerLayout';
 import {ref} from './Navigation';
 import GlobalButton from '../atoms/GlobalButton';
+import {
+  createTodoItem,
+  getTodoItem,
+  updateTodoItem,
+} from '../../feature/countTodoSlice';
+import {useDispatch} from 'react-redux';
 
 const AddTodo = ({route}: any) => {
   const {params} = route;
   const {id, action} = params;
-
+  const dispatch = useDispatch<any>();
   type FormValues = {
     title: string;
     description: string;
   };
 
-  const [fetchedData, setFetchedData] = useState({
+  const [fetchedData, setFetchedData] = useState<any>({
     title: '',
     description: '',
   });
-
-  const {createTodoItem, getTodoItem, updateTodoItem}: any = useTodo();
   const {control, handleSubmit, reset} = useForm<FormValues>();
 
   const onSubmit = (data: FormValues) => {
     if (action == 'create') {
-      createTodoItem(data);
+      dispatch(createTodoItem(data));
     } else if (action == 'edit') {
-      updateTodoItem(id, data);
+      dispatch(updateTodoItem({id, data}));
     }
     if (ref.isReady()) {
       ref.navigate('Home');
@@ -36,7 +39,8 @@ const AddTodo = ({route}: any) => {
     reset();
   };
   async function getData() {
-    setFetchedData(await getTodoItem(id));
+    const response = await dispatch(getTodoItem(id));
+    setFetchedData(response.payload);
   }
 
   useEffect(() => {

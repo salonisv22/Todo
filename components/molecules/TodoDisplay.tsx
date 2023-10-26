@@ -1,19 +1,20 @@
 import React from 'react';
 import {Pressable, ScrollView, Text} from 'react-native';
-import useTodo from '../../hooks/useTodo';
 import TodoItem from './TodoItem';
 import {ref} from '../pages/Navigation';
 import useAuth from '../../hooks/useAuth';
+import {useSelector} from 'react-redux';
+import {FlatList} from 'react-native-gesture-handler';
 
 const TodoDisplay = () => {
-  const {todoList}: any = useTodo();
+  const todoList = useSelector((state: any) => state.counter.todoList);
   const {user}: any = useAuth();
-  console.log(todoList, ' in Tododisplay');
   return (
     <ScrollView className="h-[70vh] m-2">
       {todoList.length != 0 ? (
-        todoList.map((item: any) => {
-          return (
+        <FlatList
+          data={todoList}
+          renderItem={({item}) => (
             <Pressable
               key={item.id}
               onPress={() => {
@@ -26,8 +27,9 @@ const TodoDisplay = () => {
               }}>
               <TodoItem item={item} title={item.title} id={item.id} />
             </Pressable>
-          );
-        })
+          )}
+          keyExtractor={item => item.id}
+        />
       ) : (
         <Text className="text-3xl">Hello {user}! Add a todo item.</Text>
       )}
